@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>മദ്റസ മാർക്ക് ലിസ്റ്റ് & പ്രശംസാപത്രം 📝</title>
+<!-- html2canvas Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; padding: 12px; background: #f0fdf4; margin: 0; font-size: 18px; color: #0f172a; }
+.box { background: #fff; padding: 18px; border-radius: 12px; border: 2px solid #a7f3d0; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+h2 { color: #047857; margin: 0 0 14px 0; text-align: center; font-size: 24px; }
+h3 { color: #047857; margin: 18px 0 12px 0; font-size: 20px; border-bottom: 2px solid #a7f3d0; padding-bottom: 6px; }
+label { font-weight: bold; font-size: 17px; color: #334155; display: block; margin-top: 10px; }
+input, select { width: 100%; padding: 14px; margin: 6px 0 10px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 18px; background-color: #fff; font-weight: 500; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 600px) { .grid { grid-template-columns: 1fr 1fr; } }
+.s-row { display: flex; gap: 8px; margin-bottom: 10px; align-items: center; }
+.s-row input[type="text"] { flex: 2; font-size: 17px; }
+.s-row input[type="number"] { flex: 1; font-size: 17px; }
+button { padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-m { background: #047857; color: #fff; width: 100%; font-size: 20px; padding: 16px; margin-top: 12px; }
+.btn-a { background: #0d9488; color: #fff; margin-top: 8px; margin-bottom: 12px; width: 100%; font-size: 18px; }
+.btn-edit { background: #eab308; color: #fff; padding: 8px 12px; font-size: 16px; }
+.btn-del { background: #ef4444; color: #fff; padding: 8px 12px; font-size: 16px; }
+.btn-wa { background: #25D366; color: #fff; padding: 8px 12px; font-size: 16px; }
+.btn-cert { background: #8b5cf6; color: #fff; padding: 8px 12px; font-size: 16px; }
+.btn-pdf { background: #2563eb; color: #fff; width: 100%; font-size: 20px; padding: 16px; margin-bottom: 14px; }
+.btn-sec { background: #475569; color: #fff; font-size: 16px; padding: 12px; width: 48%; }
+.table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #cbd5e1; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; background: #fff; min-width: 800px; }
+th, td { border: 1px solid #cbd5e1; padding: 12px 8px; text-align: center; font-size: 16px; white-space: nowrap; }
+th { background: #dcfce7; color: #047857; font-size: 17px; }
+.pass { color: #16a34a; font-weight: bold; }
+.fail { color: #dc2626; font-weight: bold; }
+.rank-badge { display: inline-block; padding: 2px 6px; border-radius: 6px; font-weight: bold; font-size: 13px; color: #fff; }
+.r-1 { background: #d97706; }
+.r-2 { background: #64748b; }
+.r-3 { background: #b45309; }
+.top-performer-tag { background: #f59e0b; color: #fff; font-size: 11px; padding: 2px 5px; border-radius: 4px; font-weight: bold; margin-left: 4px; display: inline-block; }
+
+#loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 999; padding: 15px; }
+.login-box { background: #fff; padding: 25px; border-radius: 12px; width: 100%; max-width: 350px; text-align: center; }
+.analytics-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-top: 15px; }
+
+/* --- A5 Certificate Layout --- */
+#certViewWrapper {
+  display: none;
+  width: 100%;
+  max-width: 520px;
+  margin: 15px auto;
+}
+#certView { 
+  background: #ffffff; 
+  border: 4px solid #047857; 
+  padding: 12px; 
+  text-align: center; 
+  width: 100%;
+  position: relative; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12); 
+  border-radius: 12px; 
+}
+.cert-outer-border {
+  border: 1px solid #047857;
+  padding: 4px;
+  border-radius: 8px;
+}
+.cert-inner-border {
+  border: 2px dashed #d97706;
+  padding: 24px 18px;
+  border-radius: 6px;
+  background: #ffffff;
+  position: relative;
+}
+
+.cert-corner { position: absolute; font-size: 24px; line-height: 1; }
+.c-top-left { top: -14px; left: -12px; }
+.c-top-right { top: -14px; right: -12px; }
+.c-bottom-left { bottom: -14px; left: -12px; }
+.c-bottom-right { bottom: -14px; right: -12px; }
+
+.cert-header { font-size: 28px; color: #047857; font-weight: 800; margin-bottom: 6px; }
+
+/* ആശംസാപത്രം ടെക്സ്റ്റ് ഇമേജിൽ വ്യക്തമായി വരാൻ ഉള്ള പുതിയ ഫിക്സ് */
+.cert-title-box { 
+  margin: 14px 0; 
+}
+.cert-title { 
+  font-size: 20px; 
+  font-weight: 800; 
+  color: #047857; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cert-body { font-size: 18px; line-height: 1.9; color: #1e293b; margin: 12px 0; }
+
+.exam-title-badge {
+  color: #dc2626;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0;
+  background-color: #ffebee;
+  padding: 6px 16px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1.5px solid #fca5a5;
+}
+
+.cert-name { font-size: 26px; font-weight: bold; color: #047857; border-bottom: 2px dashed #047857; padding: 0 10px; display: inline-block; margin: 6px 0; }
+.cert-badge { display: inline-block; border: 1.5px solid #fbc02d; color: #d97706; padding: 8px 24px; border-radius: 20px; font-size: 18px; font-weight: bold; margin: 12px 0; background: #fffbe3; }
+.cert-footer { display: flex; justify-content: space-between; margin-top: 45px; padding: 0 10px; }
+.cert-sig { border-top: 1.5px solid #047857; width: 145px; text-align: center; font-size: 16px; font-weight: bold; color: #047857; padding-top: 4px; }
+
+@media print { 
+  .no-p { display: none !important; } 
+  body { background: #fff; padding: 0; } 
+  #certViewWrapper { display: block !important; max-width: 100% !important; margin: 0 !important; }
+  #certView { border: 2px solid #047857; width: 100%; box-shadow: none; padding: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div id="loginOverlay">
+  <div class="login-box">
+    <h3 style="margin-top:0;color:#047857;font-size:22px;">പ്രവേശിക്കുക 🔒</h3>
+    <p style="font-size:16px;color:#64748b;">ആപ്പ് തുറക്കാൻ പാസ്‌വേഡ് നൽകുക</p>
+    <input type="password" id="appPass" placeholder="പാസ്‌വേഡ് അടിക്കുക" style="font-size:18px;">
+    <button class="btn-m" onclick="checkAppLogin()">തുറക്കുക 🔓</button>
+  </div>
+</div>
+
+<div class="box no-p">
+<h2>മദ്റസ പരീക്ഷാ മാർക്ക് എൻട്രി 📝</h2>
+<form id="mForm">
+<input type="hidden" id="editIndex" value="-1">
+<div class="grid">
+<div><label>മദ്റസയുടെ പേര്</label><input type="text" id="mName" required placeholder="പേര്"></div>
+<div><label>പരീക്ഷ</label><select id="eType"><option value="അർദ്ധ വാർഷിക">അർദ്ധ വാർഷികം</option><option value="വാർഷിക">വാർഷികം</option><option value="മോഡൽ">മോഡൽ</option><option value="യൂണിറ്റ്">യൂണിറ്റ്</option></select></div>
+<div>
+  <label>ക്ലാസ്സ് & ഡിവിഷൻ</label>
+  <div style="display:flex;gap:5px;">
+    <!-- Class 1 முதல் Class 12 (+2 வரை) ഉൾപ്പെടുത്തിയിരിക്കുന്നു -->
+    <select id="mClass" style="flex:2;">
+      <option>Class 1</option>
+      <option>Class 2</option>
+      <option>Class 3</option>
+      <option>Class 4</option>
+      <option>Class 5</option>
+      <option>Class 6</option>
+      <option>Class 7</option>
+      <option>Class 8</option>
+      <option>Class 9</option>
+      <option>Class 10</option>
+      <option>Class 11</option>
+      <option>Class 12</option>
+    </select>
+    <select id="mDiv" style="flex:1;"><option value="">- None -</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
+  </div>
+</div>
+<div><label>റോൾ നം.</label><input type="number" id="rNo" required placeholder="1" value="1"></div>
+<div><label>അഡ്മിഷൻ നം.</label><input type="text" id="admNo" required placeholder="Adm No"></div>
+<div><label>ലിംഗം (Gender)</label><select id="gender"><option value="M">ആൺകുട്ടി (Boy)</option><option value="F">പെൺകുട്ടി (Girl)</option></select></div>
+<div><label>കുട്ടിയുടെ പേര്</label><input type="text" id="sName" required placeholder="പേര്"></div>
+<div><label>WhatsApp നമ്പർ</label><input type="tel" id="ph" required placeholder="ഫോൺ നമ്പർ"></div>
+
+<div><label>ആകെ വർക്കിംഗ് ദിനങ്ങൾ (Total Days)</label><input type="number" id="totDays" placeholder="ഉദാ: 100" value="100"></div>
+<div><label>കുട്ടിയുടെ ഹാജർ ദിനങ്ങൾ (Attended Days)</label><input type="number" id="attDays" placeholder="ഉദാ: 95" value="95"></div>
+
+</div>
+<div><label>ഓരോ विषयोंത്തിന്റെയും മാക്സിമം മാർക്ക്</label><input type="number" id="maxM" value="100" required></div>
+
+<h3>വിഷയങ്ങൾ & മാർക്ക് 📚</h3>
+<div style="display:flex;gap:8px;font-size:16px;font-weight:bold;color:#047857;margin-bottom:6px;"><span style="flex:2">വിഷയം</span><span style="flex:1">പാസ്സ്</span><span style="flex:1">മാർക്ക്</span><span style="width:38px"></span></div>
+<div id="subList">
+<div class="s-row"><input type="text" class="sn" value="ഖുർആൻ - ഹിഫ്ള്" required><input type="number" class="sp" value="40" required><input type="number" class="sm" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button></div>
+<div class="s-row"><input type="text" class="sn" value="ഫിഖ്ഹ്" required><input type="number" class="sp" value="35" required><input type="number" class="sm" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button></div>
+<div class="s-row"><input type="text" class="sn" value="തസ്കിയ" required><input type="number" class="sp" value="35" required><input type="number" class="sm" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button></div>
+<div class="s-row"><input type="text" class="sn" value="ദുറൂസ് 1" required><input type="number" class="sp" value="35" required><input type="number" class="sm" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button></div>
+<div class="s-row"><input type="text" class="sn" value="ദുറൂസ് 2" required><input type="number" class="sp" value="35" required><input type="number" class="sm" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button></div>
+</div>
+<button type="button" class="btn-a" onclick="addSub()">+ വിഷയം ചേർക്കുക</button>
+<button type="submit" id="saveBtn" class="btn-m">സേവ് ചെയ്യുക 💾</button>
+<button type="button" id="cancelEditBtn" class="btn-a" style="background:#64748b;display:none;" onclick="resetForm()">എഡിറ്റിംഗ് ക്യാൻസൽ ചെയ്യുക</button>
+</form>
+
+<hr style="margin-top:15px;border:1px solid #a7f3d0;">
+<div style="display:flex;justify-content:space-between;gap:5px;">
+  <button onclick="exportData()" class="btn-sec">📤 ബാക്കപ്പ് എടുക്കുക (Export)</button>
+  <button onclick="importData()" class="btn-sec">📥 ബാക്കപ്പ് ചേർക്കുക (Import)</button>
+</div>
+<button onclick="changePassword()" class="btn-sec" style="width:100%;margin-top:8px;">🔑 പാസ്‌വേഡ് മാറ്റുക</button>
+</div>
+
+<div class="box" id="mainReportBox">
+<button onclick="window.print()" class="btn-pdf no-p">PDF പ്രിന്റ് എടുക്കുക 📄</button>
+
+<div class="no-p" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+  <div style="flex:1;min-width:140px;">
+    <label style="margin:0;font-size:14px;">പരീക്ഷ ഫിൽട്ടർ:</label>
+    <select id="filterExam" onchange="render()" style="margin:2px 0;">
+      <option value="ALL">എല്ലാ പരീക്ഷകളും</option>
+      <option value="അർദ്ധ വാർഷിക">അർദ്ധ വാർഷികം</option>
+      <option value="വാർഷിക">വാർഷികം</option>
+      <option value="മോഡൽ">മോഡൽ</option>
+      <option value="യൂണിറ്റ്">യൂണിറ്റ്</option>
+    </select>
+  </div>
+  <div style="flex:1;min-width:140px;">
+    <label style="margin:0;font-size:14px;">ക്ലാസ്സ് ഫിൽട്ടർ:</label>
+    <select id="filterClass" onchange="render()" style="margin:2px 0;"><option value="ALL">എല്ലാ ക്ലാസ്സുകളും</option></select>
+  </div>
+  <div style="flex:1;min-width:180px;">
+    <label style="margin:0;font-size:14px;">സെർച്ച് ചെയ്യുക:</label>
+    <input type="text" id="searchQuery" oninput="render()" placeholder="പേര് / Adm / Roll / Ph..." style="margin:2px 0;">
+  </div>
+</div>
+
+<h2 id="dMadrasa" style="margin:0;"></h2>
+<p id="dClass" style="text-align:center;font-weight:bold;margin:5px 0 15px;color:#047857;font-size:18px;"></p>
+<div class="table-container">
+<table><thead id="tHead"></thead><tbody id="tBody"></tbody></table>
+</div>
+
+<div id="analyticsSection" class="analytics-box no-p">
+  <h3 style="margin-top:0;">📊 വിഷയാടിസ്ഥാനത്തിലുള്ള ആവറേജ് (Class Average)</h3>
+  <div id="analyticsContent" style="display:flex;flex-wrap:wrap;gap:12px;font-size:15px;"></div>
+</div>
+</div>
+
+<!-- പ്രശംസാപത്രം (Certificate) -->
+<div id="certViewWrapper">
+  <div id="certView">
+    <div class="cert-outer-border">
+      <div class="cert-inner-border">
+        <div class="cert-corner c-top-left">🌺</div>
+        <div class="cert-corner c-top-right">🌺</div>
+        <div class="cert-corner c-bottom-left">🌺</div>
+        <div class="cert-corner c-bottom-right">🌺</div>
+
+        <div class="cert-header" id="certMName">മദ്റസ പേര്</div>
+        
+        <div class="cert-title-box">
+          <div class="cert-title">പ്രശംസാപത്രം</div>
+          <div style="font-size: 14px; font-weight: bold; color: #047857; margin-top: 2px;">CERTIFICATE OF EXCELLENCE</div>
+        </div>
+
+        <div class="cert-body">
+          ഈ അധ്യയന വർഷത്തിലെ<br>
+          <div class="exam-title-badge" id="certExamName">അർദ്ധ വാർഷിക പരീക്ഷ 2026</div><br>
+          <span id="certClass">Class 8</span> ക്ലാസ്സിലെ റോൾ നമ്പർ <b id="certRNo">8</b> <span id="certGenderTitle">വിദ്യാർത്ഥി</span><br>
+          <div class="cert-name" id="certSName">മുഹമ്മദ് റിസിൻ പി കെ</div><br>
+          മികച്ച വിജയം കരസ്ഥമാക്കിയതിൽ പ്രശംസിക്കുകയും സർട്ടിഫിക്കറ്റ് നൽകി ആദരിക്കുകയും ചെയ്യുന്നു.
+        </div>
+
+        <div>
+          <span class="cert-badge" id="certGradeBadge">GRADE: A+ (Top Star)</span>
+        </div>
+
+        <div style="font-size: 16px; color: #047857; margin-top: 12px; font-weight: bold;">
+          ആകെ മാർക്ക്: <span id="certMark">362 / 400</span> | ശതമാനം: <span id="certPct">90.5%</span><br>
+          ഹാജർ: <span id="certAttText">95 / 100 (95.0%)</span>
+        </div>
+
+        <div class="cert-footer">
+          <div class="cert-sig">സ്വദർ മുഅല്ലിം</div>
+          <div class="cert-sig">പ്രസിഡന്റ് / സെക്രട്ടറി</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-p" style="margin-top:15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+    <button onclick="downloadCertImage()" class="btn-wa" style="width: 100%; padding: 14px; font-size: 18px; background:#00695c;">🖼️ JPG ഡൗൺലോഡ് ചെയ്യുക</button>
+    <button onclick="window.print()" class="btn-pdf" style="width: 48%; padding: 12px; font-size: 16px; margin-bottom: 0;">🖨 പ്രിന്റ് ചെയ്യുക</button>
+    <button onclick="closeCert()" class="btn-sec" style="width: 48%; padding: 12px; font-size: 16px;">മടങ്ങുക (Back)</button>
+  </div>
+</div>
+
+<script>
+let data = [];
+let activeCertIndex = -1;
+let keysToSearch = ['m_data_sunni_v6', 'm_data_sunni_v5', 'm_data_sunni_v4', 'm_data_sunni_v3', 'm_data_sunni', 'm_data'];
+
+for(let k of keysToSearch){
+  let d = localStorage.getItem(k);
+  if(d){
+    data = JSON.parse(d);
+    break;
+  }
+}
+
+let savedPass = localStorage.getItem('m_app_pass') || '1234';
+
+function checkAppLogin(){
+  let input = document.getElementById('appPass').value;
+  if(input === savedPass){
+    document.getElementById('loginOverlay').style.display = 'none';
+  } else {
+    alert('തെറ്റായ പാസ്‌വേഡ്!');
+  }
+}
+
+function verifyAction(){
+  let p = prompt("മാറ്റങ്ങൾ വരുത്താൻ പാസ്‌‌വേഡ് നൽകുക:");
+  if(p === savedPass) return true;
+  if(p !== null) alert("തെറ്റായ പാസ്‌വേഡ്!");
+  return false;
+}
+
+function changePassword(){
+  if(verifyAction()){
+    let newP = prompt("പുതിയ പാസ്‌വേഡ് നൽകുക:");
+    if(newP && newP.trim() !== ""){
+      savedPass = newP.trim();
+      localStorage.setItem('m_app_pass', savedPass);
+      alert("പാസ്‌വേഡ് വിജയകരമായി മാറ്റി!");
+    }
+  }
+}
+
+function exportData(){
+  let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+  let downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", "madrasa_backup.json");
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
+function importData(){
+  if(!verifyAction()) return;
+  let input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = readerEvent => {
+      let content = readerEvent.target.result;
+      try {
+        data = JSON.parse(content);
+        updateClassFilterOptions();
+        render();
+        alert("ഡാറ്റ വിജയകരമായി ഫോണിലേക്ക് മാറ്റി!");
+      } catch(err) {
+        alert("തെറ്റായ ഫയൽ ഫോർമാറ്റ്!");
+      }
+    }
+  }
+  input.click();
+}
+
+function speak(t){
+if('speechSynthesis' in window){
+let u = new SpeechSynthesisUtterance(t); u.lang = 'ml-IN'; u.rate = 0.85;
+window.speechSynthesis.speak(u);
+}}
+
+function getSunniGrade(m, max, isP){
+if(!isP) return { letter: 'F', title: 'Failed' };
+let pct = (m / max) * 100;
+if(pct >= 95) return { letter: 'A++', title: 'Top Star' };
+if(pct >= 90) return { letter: 'A+', title: 'Top Star' };
+if(pct >= 80) return { letter: 'A', title: 'First Distinction' };
+if(pct >= 70) return { letter: 'B+', title: 'First Class' };
+if(pct >= 60) return { letter: 'B', title: 'Second Class' };
+if(pct >= 40) return { letter: 'C', title: 'Third Class' };
+return { letter: 'F', title: 'Failed' };
+}
+
+function addSub(){
+let d = document.createElement('div'); d.className='s-row';
+d.innerHTML=`<input type="text" class="sn" placeholder="വിഷയം" required><input type="number" class="sp" value="35" required><input type="number" class="sm" placeholder="മാർക്ക്" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button>`;
+document.getElementById('subList').appendChild(d);
+}
+
+function remSub(b){
+if(document.querySelectorAll('.s-row').length > 1) b.parentElement.remove();
+else alert("കുറഞ്ഞത് ഒരു വിഷയം വേണം!");
+}
+
+function updateClassFilterOptions(){
+  let fc = document.getElementById('filterClass');
+  let currentVal = fc.value;
+  let classes = new Set();
+  data.forEach(item => {
+    let clsStr = item.mClass + (item.mDiv ? ' ' + item.mDiv : '');
+    classes.add(clsStr);
+  });
+  fc.innerHTML = '<option value="ALL">എല്ലാ ക്ലാസ്സുകളും</option>';
+  classes.forEach(c => {
+    fc.innerHTML += `<option value="${c}">${c}</option>`;
+  });
+  if(classes.has(currentVal)) fc.value = currentVal;
+}
+
+function calculateRanks(filteredList){
+  let passList = [];
+  filteredList.forEach((item, originalIndex) => {
+    let tot = 0, pass = true;
+    item.subs.forEach(s => {
+      let m = Number(s.m), p = Number(s.p); tot += m;
+      if(m < p) pass = false;
+    });
+    if(pass){
+      passList.push({ index: originalIndex, total: tot });
+    }
+  });
+
+  passList.sort((a, b) => b.total - a.total);
+
+  let ranks = {};
+  let currentRank = 1;
+  for(let i = 0; i < passList.length; i++){
+    if(i > 0 && passList[i].total < passList[i-1].total){
+      currentRank = i + 1;
+    }
+    ranks[passList[i].index] = currentRank;
+  }
+  return ranks;
+}
+
+function render(){
+let tb = document.getElementById('tBody'), th = document.getElementById('tHead');
+tb.innerHTML = ''; th.innerHTML = '';
+
+if(!data.length){
+document.getElementById('rNo').value = 1;
+document.getElementById('analyticsSection').style.display = 'none';
+return;
+}
+
+updateClassFilterOptions();
+
+let selectedFilterExam = document.getElementById('filterExam').value;
+let selectedFilterClass = document.getElementById('filterClass').value;
+let searchQuery = document.getElementById('searchQuery').value.toLowerCase().trim();
+
+let filteredData = data.map((item, originalIndex) => ({...item, originalIndex})).filter(item => {
+  let clsStr = item.mClass + (item.mDiv ? ' ' + item.mDiv : '');
+  let examMatch = (selectedFilterExam === 'ALL' || item.eType === selectedFilterExam);
+  let classMatch = (selectedFilterClass === 'ALL' || clsStr === selectedFilterClass);
+  let searchMatch = !searchQuery || 
+                    item.sName.toLowerCase().includes(searchQuery) || 
+                    (item.admNo && item.admNo.toLowerCase().includes(searchQuery)) ||
+                    (item.rNo && item.rNo.toString().includes(searchQuery)) ||
+                    (item.ph && item.ph.toLowerCase().includes(searchQuery));
+  return examMatch && classMatch && searchMatch;
+});
+
+filteredData.sort((a, b) => {
+  let gA = (a.gender || 'M').toUpperCase();
+  let gB = (b.gender || 'M').toUpperCase();
+  if (gA !== gB) {
+    return gA === 'M' ? -1 : 1;
+  }
+  return Number(a.rNo) - Number(b.rNo);
+});
+
+document.getElementById('dMadrasa').innerText = data[0].mName;
+let displayExamText = selectedFilterExam === 'ALL' ? 'എല്ലാ പരീക്ഷകളും' : (selectedFilterExam + ' പരീക്ഷ');
+let displayClassText = selectedFilterClass === 'ALL' ? (displayExamText + " - All Classes") : (displayExamText + " - " + selectedFilterClass);
+document.getElementById('dClass').innerText = displayClassText;
+
+if(!filteredData.length){
+  tb.innerHTML = '<tr><td colspan="16" style="padding:20px;color:#64748b;">വിവരങ്ങളൊന്നും കണ്ടെത്തിയില്ല!</td></tr>';
+  document.getElementById('analyticsSection').style.display = 'none';
+  return;
+}
+
+let ranks = calculateRanks(filteredData);
+
+let h = `<tr><th>റോൾ (Sex)</th><th>Adm No</th><th>പേര്</th><th>പരീക്ഷ</th><th>റാങ്ക്</th>`;
+filteredData[0].subs.forEach(s => h += `<th>${s.n}</th>`);
+h += `<th>ആകെ മാർക്ക്</th><th>ശതമാനം</th><th>ഹാജർ</th><th>ആകെ ഗ്രേഡ്</th><th>ഫലം</th><th class="no-p">പ്രവർത്തനം</th></tr>`;
+th.innerHTML = h;
+
+let subjectTotals = {};
+let subjectCounts = {};
+
+filteredData.forEach((item, i) => {
+let tot = 0, pass = true, mx = Number(item.maxM);
+let sexBadge = item.gender === 'F' ? '<span style="color:#d946ef;">(F)</span>' : '<span style="color:#2563eb;">(M)</span>';
+let rankDisplay = '-';
+if(ranks[i]){
+  let rVal = ranks[i];
+  if(rVal === 1) rankDisplay = `<span class="rank-badge r-1">🥇 1</span>`;
+  else if(rVal === 2) rankDisplay = `<span class="rank-badge r-2">🥈 2</span>`;
+  else if(rVal === 3) rankDisplay = `<span class="rank-badge r-3">🥉 3</span>`;
+  else rankDisplay = `<b>${rVal}</b>`;
+}
+
+let clsBadge = selectedFilterClass === 'ALL' ? `<br><small style="color:#64748b;">(${item.mClass}${item.mDiv?' '+item.mDiv:''})</small>` : '';
+
+let gMax = mx * item.subs.length;
+
+item.subs.forEach(s => {
+let m = Number(s.m), p = Number(s.p); tot += m;
+let isSubPass = m >= p;
+if(!isSubPass) pass = false;
+if(!subjectTotals[s.n]){ subjectTotals[s.n] = 0; subjectCounts[s.n] = 0; }
+subjectTotals[s.n] += m;
+subjectCounts[s.n]++;
+});
+
+let totalGrade = getSunniGrade(tot, gMax, pass);
+let topTag = (totalGrade.letter === 'A++' || totalGrade.letter === 'A+') ? '<span class="top-performer-tag">⭐ Top</span>' : '';
+
+let r = `<tr><td><b>${item.rNo}</b> ${sexBadge}${clsBadge}</td><td>${item.admNo || '-'}</td><td style="text-align:left;font-weight:bold;">${item.sName} ${topTag}</td><td><small style="color:#047857;font-weight:bold;">${item.eType || 'അർദ്ധ വാർഷിക'}</small></td><td>${rankDisplay}</td>`;
+
+item.subs.forEach(s => {
+let m = Number(s.m), p = Number(s.p);
+let isSubPass = m >= p;
+let sg = getSunniGrade(m, mx, isSubPass);
+r += `<td>${m} <br><small style="color:#047857;font-weight:bold;font-size:14px;">(${sg.letter})</small></td>`;
+});
+
+let calcPct = ((tot / gMax) * 100).toFixed(1);
+
+let attText = '-';
+if(item.totDays && item.attDays){
+  let aPct = ((Number(item.attDays) / Number(item.totDays)) * 100).toFixed(1);
+  attText = `${item.attDays}/${item.totDays} (${aPct}%)`;
+} else if(item.attPct){
+  attText = item.attPct + '%';
+}
+
+let isDistinction = pass && (totalGrade.letter === 'A' || totalGrade.letter === 'A+' || totalGrade.letter === 'A++');
+let certBtnHtml = isDistinction ? `<button class="btn-cert" title="സർട്ടിഫിക്കറ്റ്" onclick="generateCert(${item.originalIndex})">📜 Cert</button>` : '';
+
+r += `<td><b>${tot}</b> / ${gMax}</td><td><b>${calcPct}%</b></td><td>${attText}</td><td><b>${totalGrade.letter}</b> <br><small style="font-size:13px;">(${totalGrade.title})</small></td><td>${pass?'<span class="pass">വിജയിച്ചു</span>':'<span class="fail">തോറ്റു</span>'}</td>
+<td class="no-p">
+  <button class="btn-wa" onclick="wa(${item.originalIndex})">WA</button> 
+  ${certBtnHtml}
+  <button class="btn-edit" onclick="editData(${item.originalIndex})">✏</button> 
+  <button class="btn-del" onclick="del(${item.originalIndex})">🗑</button>
+</td></tr>`;
+tb.innerHTML += r;
+});
+
+let analyticsDiv = document.getElementById('analyticsContent');
+analyticsDiv.innerHTML = '';
+for(let subName in subjectTotals){
+  let avg = (subjectTotals[subName] / subjectCounts[subName]).toFixed(1);
+  analyticsDiv.innerHTML += `<div style="background:#fff;padding:8px 12px;border-radius:6px;border:1px solid #cbd5e1;flex:1;min-width:140px;text-align:center;">
+    <div style="font-weight:bold;color:#047857;">${subName}</div>
+    <div style="font-size:16px;margin-top:2px;">ആവറേജ്: <b>${avg}</b></div>
+  </div>`;
+}
+document.getElementById('analyticsSection').style.display = 'block';
+
+document.getElementById('rNo').value = data.length + 1;
+localStorage.setItem('m_data_sunni_v6', JSON.stringify(data));
+}
+
+document.getElementById('mForm').onsubmit = function(e){
+e.preventDefault();
+let editIdx = parseInt(document.getElementById('editIndex').value);
+
+if(editIdx !== -1){
+  if(!verifyAction()) return;
+}
+
+let subs = [];
+document.querySelectorAll('.s-row').forEach(r => {
+subs.push({n: r.querySelector('.sn').value, p: r.querySelector('.sp').value, m: r.querySelector('.sm').value});
+});
+
+let st = {
+mName: document.getElementById('mName').value.trim(), 
+eType: document.getElementById('eType').value,
+mClass: document.getElementById('mClass').value, 
+mDiv: document.getElementById('mDiv').value,
+rNo: document.getElementById('rNo').value,
+admNo: document.getElementById('admNo').value, 
+gender: document.getElementById('gender').value,
+sName: document.getElementById('sName').value.trim(), 
+ph: document.getElementById('ph').value,
+totDays: document.getElementById('totDays').value,
+attDays: document.getElementById('attDays').value,
+maxM: document.getElementById('maxM').value, 
+subs: subs
+};
+
+if(editIdx !== -1){
+  data[editIdx] = st;
+} else {
+  data.push(st);
+}
+
+let isP = st.subs.every(s => Number(s.m) >= Number(s.p));
+speak(`${st.sName} ${isP ? 'വിജയിച്ചു' : 'തോറ്റു'}`);
+
+resetForm();
+render();
+};
+
+function editData(i){
+if(!verifyAction()) return;
+
+let st = data[i];
+document.getElementById('editIndex').value = i;
+document.getElementById('mName').value = st.mName;
+document.getElementById('eType').value = st.eType || 'അർദ്ധ വാർഷിക';
+document.getElementById('mClass').value = st.mClass;
+document.getElementById('mDiv').value = st.mDiv || '';
+document.getElementById('rNo').value = st.rNo;
+document.getElementById('admNo').value = st.admNo || '';
+document.getElementById('gender').value = st.gender || 'M';
+document.getElementById('sName').value = st.sName;
+document.getElementById('ph').value = st.ph;
+document.getElementById('totDays').value = st.totDays || 100;
+document.getElementById('attDays').value = st.attDays || 95;
+document.getElementById('maxM').value = st.maxM;
+
+let subContainer = document.getElementById('subList');
+subContainer.innerHTML = '';
+st.subs.forEach(s => {
+  let d = document.createElement('div'); d.className='s-row';
+  d.innerHTML=`<input type="text" class="sn" value="${s.n}" required><input type="number" class="sp" value="${s.p}" required><input type="number" class="sm" value="${s.m}" required><button type="button" class="btn-del" onclick="remSub(this)">✕</button>`;
+  subContainer.appendChild(d);
+});
+
+document.getElementById('saveBtn').innerText = 'അപ്ഡേറ്റ് ചെയ്യുക 🔄';
+document.getElementById('cancelEditBtn').style.display = 'block';
+window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function resetForm(){
+document.getElementById('editIndex').value = -1;
+document.getElementById('sName').value = ''; 
+document.getElementById('admNo').value = '';
+document.getElementById('ph').value = '';
+document.getElementById('totDays').value = 100;
+document.getElementById('attDays').value = 95;
+document.querySelectorAll('.sm').forEach(i => i.value = '');
+document.getElementById('saveBtn').innerText = 'സേവ് ചെയ്യുക 💾';
+document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+function generateCert(i){
+  activeCertIndex = i;
+  let st = data[i], tot = 0, pass = true, mx = Number(st.maxM);
+  st.subs.forEach(s => {
+    let m = Number(s.m), p = Number(s.p); tot += m;
+    if(m < p) pass = false;
+  });
+  let gMax = mx * st.subs.length;
+  let pct = ((tot / gMax) * 100).toFixed(1);
+  let totalGrade = getSunniGrade(tot, gMax, pass);
+
+  let currentYear = new Date().getFullYear();
+  document.getElementById('certMName').innerText = st.mName;
+  
+  let examText = (st.eType ? st.eType : 'അർദ്ധ വാർഷിക') + " പരീക്ഷ " + currentYear;
+  document.getElementById('certExamName').innerText = examText;
+  
+  document.getElementById('certClass').innerText = st.mClass + (st.mDiv ? ' ' + st.mDiv : '');
+  document.getElementById('certRNo').innerText = st.rNo;
+  document.getElementById('certSName').innerText = st.sName;
+  
+  document.getElementById('certGenderTitle').innerText = (st.gender === 'F') ? 'വിദ്യാർത്ഥിനി' : 'വിദ്യാർത്ഥി';
+
+  document.getElementById('certGradeBadge').innerText = "GRADE: " + totalGrade.letter + " (" + totalGrade.title + ")";
+  document.getElementById('certMark').innerText = tot + " / " + gMax;
+  document.getElementById('certPct').innerText = pct + "%";
+
+  let attText = '-';
+  if(st.totDays && st.attDays){
+    let aPct = ((Number(st.attDays) / Number(st.totDays)) * 100).toFixed(1);
+    attText = `${st.attDays} / ${st.totDays} (${aPct}%)`;
+  } else if(st.attPct){
+    attText = st.attPct + '%';
+  }
+  document.getElementById('certAttText').innerText = attText;
+
+  document.querySelectorAll('.box').forEach(b => b.style.display = 'none');
+  document.getElementById('certViewWrapper').style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function closeCert(){
+  document.querySelectorAll('.box').forEach(b => b.style.display = 'block');
+  document.getElementById('certViewWrapper').style.display = 'none';
+  activeCertIndex = -1;
+}
+
+function downloadCertImage(){
+  let certElem = document.getElementById('certView');
+  html2canvas(certElem, { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then(canvas => {
+    let link = document.createElement('a');
+    let st = data[activeCertIndex];
+    let examNameClean = (st.eType || 'Exam').replace(/\s+/g, '_');
+    link.download = `Certificate_${st.sName.replace(/\s+/g, '_')}_${examNameClean}.jpg`;
+    link.href = canvas.toDataURL('image/jpeg', 0.9);
+    link.click();
+  });
+}
+
+function wa(i){
+let st = data[i], tot = 0, pass = true, txt = "", mx = Number(st.maxM);
+let aPlusPlusCount = 0;
+
+st.subs.forEach((s, idx) => {
+let m = Number(s.m), p = Number(s.p); tot += m;
+let isSubPass = m >= p;
+if(!isSubPass) pass = false;
+let sg = getSunniGrade(m, mx, isSubPass);
+if(sg.letter === 'A++') aPlusPlusCount++;
+let cleanSubName = s.n.trim();
+txt += `${idx+1}. *${cleanSubName}*: *${m}/${mx}* (ഗ്രേഡ്: *${sg.letter}*)\n`;
+});
+
+let gMax = mx * st.subs.length;
+let pct = Number(((tot / gMax) * 100).toFixed(1));
+let totalGrade = getSunniGrade(tot, gMax, pass);
+
+let note = "";
+if(!pass){
+  note = "\n\n*നിർദ്ദേശം: ഒന്നും കൂടി ശ്രദ്ധിച്ച് നന്നായി പഠിക്കണം.*";
+} else if(aPlusPlusCount > 2){
+  note = "\n\n*അഭിനന്ദനം: സന്തോഷം, ഇനിയും വളരെ ഉത്സാഹിച്ചു പഠിക്കുക. അല്ലാഹു അനുഗ്രഹിക്കട്ടെ! ആമീൻ.*";
+} else if(pct < 50){
+  note = "\n\n*നിർദ്ദേശം: ഒന്നും കൂടി ഉത്സാഹിച്ച് പഠിക്കുക.*";
+} else if(pct < 70){
+  note = "\n\n*നിർദ്ദേശം: ഒന്നും കൂടി ശ്രദ്ധിച്ചാൽ കൂടുതൽ വിജയത്തിലെത്താം.*";
+}
+
+let cleanMName = st.mName.trim();
+let cleanSName = st.sName.trim();
+let classFullStr = st.mClass + (st.mDiv ? ' ' + st.mDiv : '');
+
+let attText = '-';
+if(st.totDays && st.attDays){
+  let aPct = ((Number(st.attDays) / Number(st.totDays)) * 100).toFixed(1);
+  attText = `${st.attDays}/${st.totDays} (${aPct}%)`;
+} else if(st.attPct){
+  attText = st.attPct + '%';
+}
+
+let msg = `*${cleanMName}*\n` +
+          `*${st.eType || 'അർദ്ധ വാർഷിക'} പരീക്ഷ - ${classFullStr}*\n\n` +
+          `കുട്ടിയുടെ പേര്: *${cleanSName}*\n` +
+          `അഡ്മിഷൻ നമ്പർ: *${st.admNo || '-'}*\n` +
+          `റോൾ നമ്പർ: *${st.rNo} (${st.gender === 'F' ? 'Girl' : 'Boy'})*\n` +
+          `ഹാജർ നില: *${attText}*\n\n` +
+          `*വിഷയങ്ങളും മാർക്കും:* \n${txt}\n` +
+          `ആകെ മാർക്ക്: *${tot} / ${gMax}*\n` +
+          `ശതമാനം: *${pct}%*\n` +
+          `ആകെ ഗ്രേഡ്: *${totalGrade.letter} (${totalGrade.title})*\n` +
+          `ഫലം: ${pass?'*വിജയിച്ചു* 🎉':'*തോറ്റു* ❌'}` +
+          `${note}\n\n` +
+          `شكرا جزاكم الله خيرا !`;
+
+let p = st.ph.replace(/\D/g, ''); if(p.length===10) p='91'+p;
+window.open(`https://api.whatsapp.com/send?phone=${p}&text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function del(i){ 
+  if(verifyAction()){
+    if(confirm("ഈ കുട്ടിയുടെ വിവരങ്ങൾ നീക്കം ചെയ്യണോ?")){ 
+      data.splice(i, 1); 
+      render(); 
+    } 
+  }
+}
+render();
+</script>
+</body>
+</html>
